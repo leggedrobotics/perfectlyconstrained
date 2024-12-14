@@ -14,7 +14,7 @@ The work investigates different degeneracy mitigation methods for the problem of
 - To replicate the result of the work of Petracek et al. (RMS), the authors [forked](https://github.com/leggedrobotics/RMS) the [original work](https://github.com/ctu-mrs/RMS). Please also install the dependencies of this repository.
 
 
-## Dependencies (on top of the Components / or part of them)
+## Dependencies
 1. Ubuntu 20.04 (expecting PCL 1.10)
 2. ROS Noetic
 3. CMake > 3.18 (tested 3.25)
