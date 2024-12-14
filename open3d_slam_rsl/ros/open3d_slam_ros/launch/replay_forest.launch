@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Important things -->
+  <arg name="rosbag_filepath" default="/home/ttuna/Videos/anymal_forest_experiment.bag"/>
+  <arg name="cloud_topic" default="/lidar/point_cloud"/>
+  <arg name="assumed_external_odometry_tracked_frame" default="base"/>
+  <arg name="async_pose_topic" default="/state_estimator/pose_in_odom"/>
+
+  <!-- You can slow down the replay by sleeping between registration. -->
+  <arg name="relative_sleep_duration" default="0.0"/>
+
+  <!-- You can skip to a certain point in the bag. ANYmal Forest starts from 200th second since before that it is unnecessary. -->
+  <arg name="replay_start_time_as_second" default="200"/>
+  <arg name="replay_end_time_as_second" default="380"/>
+
+  <!-- Arguments -->
+  <arg name="launch_prefix" default="" doc=" nice -n -20  gdb -ex run --args"/>
+  <arg name="launch_rviz" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+
+  <!-- You dont need to touch the rest. -->
+  <arg name="parameter_filename" default="param_velodyne_puck16_replay_forest.lua"/>
+  <arg name="parameter_folder_path" default="$(find open3d_slam_ros)/param/"/>
+  <arg name="map_saving_folder" default="$(find open3d_slam_ros)/data/maps/"/>
+  <arg name="is_read_from_rosbag" default="true"/>
+  <arg name="republish_tf_topic" default="false"/>
+  <arg name="use_gps_for_ground_truth" default="true"/>
+  <arg name="gps_frame" default="gps_mock"/>
+  <arg name="gps_topic" default="/rtk_gps_driver/position_receiver_0/ros/navsatfix"/>
+  <arg name="save_processed_bag" default="false"/>
+  <arg name="icp_yaml_full_path" default="$(find open3d_slam_ros)/param/icp.yaml"/>    
+
+  <!-- Main Node -->
+  <node name="open3d_slam" pkg="open3d_slam_ros"
+        type="mapping_node" output="screen"
+        launch-prefix="$(arg launch_prefix)">
+    <param name="cloud_topic" type="string" value="$(arg cloud_topic)"/>
+
+    <param name="parameter_folder_path" type="string"
+           value="$(arg parameter_folder_path)"/>
+
+    <param name="assumed_external_odometry_tracked_frame" type="string"
+           value="$(arg assumed_external_odometry_tracked_frame)"/>
+
+    <param name="async_pose_topic" type="string"
+           value="$(arg async_pose_topic)"/>
+
+    <param name="gps_frame" type="string"
+           value="$(arg gps_frame)"/>
+
+    <param name="gps_topic" type="string"
+           value="$(arg gps_topic)"/>
+
+    <param name="use_gps_for_ground_truth" type="bool"
+           value="$(arg use_gps_for_ground_truth)"/>           
+
+    <param name="save_processed_bag" type="bool"
+           value="$(arg save_processed_bag)"/>
+
+    <param name="icp_yaml_full_path" type="string"
+           value="$(arg icp_yaml_full_path)"/>  
+
+    <param name="republish_tf_topic" type="bool"
+           value="$(arg republish_tf_topic)"/>
+
+    <param name="relative_sleep_duration" type="double"
+           value="$(arg relative_sleep_duration)"/>
+
+    <param name="replay_start_time_as_second" type="double"
+           value="$(arg replay_start_time_as_second)"/>
+
+    <param name="replay_end_time_as_second" type="double"
+           value="$(arg replay_end_time_as_second)"/>
+
+    <param name="parameter_filename" type="string"
+           value="$(arg parameter_filename)"/>
+    <param name="is_read_from_rosbag" value="$(arg is_read_from_rosbag)"/>
+    <param name="rosbag_filepath" value="$(arg rosbag_filepath)"/>
+    <param name="map_saving_folder" value="$(arg map_saving_folder)"/>
+  </node>
+
+  <!-- Visualization -->
+  <include
+      file="$(find open3d_slam_ros)/launch/vis.launch"
+      if="$(arg launch_rviz)">
+  </include>
+
+</launch>

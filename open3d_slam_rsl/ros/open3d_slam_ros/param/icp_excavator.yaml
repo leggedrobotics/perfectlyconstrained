@@ -1,0 +1,101 @@
+readingDataPointsFilters:
+  # - CovarianceSamplingDataPointsFilter: # Gelfand et al.
+  #     nbSample: 50000000
+
+referenceDataPointsFilters:
+# No specific filters.
+
+matcher:
+  KDTreeMatcher:
+    knn: 1
+    maxDist: 0.5
+    epsilon: 0.01
+
+outlierFilters:
+  # - RobustOutlierFilter: # Cauchy method.
+  #     robustFct: cauchy
+  #     scaleEstimator: mad
+  #     tuning: 1.0
+  - TrimmedDistOutlierFilter:
+     ratio: 0.95
+  - SurfaceNormalOutlierFilter:
+     maxAngle: 1.57
+
+# This enables L-Reg. Method. Needs to be run together with "OptimizedEqualityConstraints:" degeneracyAwareness method
+regularization:
+  Disabled: # "Enabled" or "Disabled. This is the L-Reg. Method. Needs to be run together with "OptimizedEqualityConstraints:"
+    regularizationWeight: 440.0
+
+# Enables the RMS filtering by Petracek et al.
+enableRMSfiltering:
+  Disabled: # "Enabled" or "Disabled
+    rmsLambda: 0.0042 
+
+# This enables L-Reg. Method. Needs to be run together with "OptimizedEqualityConstraints:" degeneracyAwareness
+ceresDegeneracyAnalysis:
+  CeresDegeneracyState:
+    isActive: 0 # "Enabled -> 1" or "Disabled -> 0. This is the NL-Reg. Method. Needs to be run together with "OptimizedEqualityConstraints:" for correct detection.
+    usePointToPointCost: 0
+    usePointToPlaneCost: 1
+    useBoundConstraints: 1 # This is the transition from NL-Reg. to NL-Solver. 1: NL-Reg. 0: NL-Solver.
+    useSixDofRegularization: 0
+    useThreeDofRegularization: 1
+    regularizationWeight: 675.0 # The weight of NL-Reg.
+
+degeneracyAwareness:
+  #InequalityConstraints:
+  #  highInformationThreshold: 300   
+  #  enoughInformationThreshold: 300
+  #  insufficientInformationThreshold: 150
+  #  point2NormalMinimalAlignmentAngleThreshold: 60
+  #  point2NormalStrongAlignmentAngleThreshold: 45
+  #  inequalityboundmultiplier: 0.0014
+  #None:
+   OptimizedEqualityConstraints:
+     enoughInformationThreshold: 300
+     insufficientInformationThreshold: 150
+     point2NormalMinimalAlignmentAngleThreshold: 60
+     point2NormalStrongAlignmentAngleThreshold: 45
+  #EqualityConstraints:
+  #  highInformationThreshold: 350 
+  #  enoughInformationThreshold: 150
+  #  insufficientInformationThreshold: 40
+  #  point2NormalMinimalAlignmentAngleThreshold: 60
+  #  point2NormalStrongAlignmentAngleThreshold: 45
+  #SolutionRemapping:
+  #  threshold: 100
+  #  use2019: 0
+  #  useTruncatedSVD: 0
+  #  skipRegistration: 1
+  # Hacky solution to use X-ICP degeneracy detection for Zhang et al., and TSVD.
+  #  enoughInformationThreshold: 300
+  #  insufficientInformationThreshold: 150
+  #  point2NormalMinimalAlignmentAngleThreshold: 60
+  #  point2NormalStrongAlignmentAngleThreshold: 45
+
+transformationCheckers:
+  - DifferentialTransformationChecker:
+      minDiffRotErr: 0.001
+      minDiffTransErr: 0.01
+      smoothLength: 3
+  - CounterTransformationChecker:
+      maxIterationCount: 30
+
+inspector:
+  NullInspector
+
+logger:
+  NullLogger
+
+errorMinimizer:
+  PointToPlaneErrorMinimizer
+
+degeneracyDebug:
+  Enabled: # "Enabled" or "Disabled.
+
+printingDegeneracy:
+  Enabled: # "Enabled" or "Disabled.
+
+# Leave it enabled, this enforces the XICP detection.
+forceXICPdetection:
+  Enabled: # "Enabled" or "Disabled

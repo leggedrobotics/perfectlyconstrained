@@ -1,0 +1,62 @@
+BasedOnStyle: Mozilla
+AccessModifierOffset: '-4'
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignEscapedNewlinesLeft: false
+AlignOperands: false
+AlignTrailingComments: false
+PointerAlignment: Left
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: false
+BinPackParameters: true
+BreakBeforeBraces: Custom
+BreakBeforeTernaryOperators: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+Cpp11BracedListStyle: false
+IndentCaseLabels: true
+Language: Cpp
+MaxEmptyLinesToKeep: '2'
+NamespaceIndentation: None
+FixNamespaceComments: true
+ReflowComments: false
+IncludeBlocks: Preserve
+SortIncludes: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+Standard: Auto
+TabWidth: 4
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 140
+BreakConstructorInitializers: AfterColon
+BreakBeforeInheritanceComma : false
+ConstructorInitializerIndentWidth: 4
+SpacesInCStyleCastParentheses: false
+SpacesBeforeTrailingComments: 1
+ExperimentalAutoDetectBinPacking: true
+AllowAllParametersOfDeclarationOnNextLine: false
+ContinuationIndentWidth: 4
+BraceWrapping:
+  SplitEmptyFunction: false
+  AfterEnum: true
+  AfterControlStatement: true
+  AfterStruct: true
+  AfterClass: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+  IndentBraces: false
+AlignAfterOpenBracket: Align
+BreakBeforeBinaryOperators: NonAssignment
+CommentPragmas:  '^\\.+'

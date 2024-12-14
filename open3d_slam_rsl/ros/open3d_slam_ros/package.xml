@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>open3d_slam_ros</name>
+  <version>0.0.0</version>
+  <description>Range sensor based mapping</description>
+
+  <maintainer email="jelavice@ethz.ch">Edo Jelavic</maintainer>
+
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+
+
+  <author email="jelavice@ethz.ch">Edo Jelavic</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>cmake_clang_tools</build_depend>
+
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>open3d_conversions</depend>
+  <depend>open3d_slam</depend>
+  <depend>eigen_conversions</depend>
+  <depend>tf2</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>interactive_markers</depend>
+  <depend>rosbag</depend>
+  <depend>open3d_slam_lua_io</depend>
+  <depend>nav_msgs</depend>
+  <depend>rms</depend>
+
+</package>

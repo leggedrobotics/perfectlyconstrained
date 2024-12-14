@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+  <!-- Important parameters -->
+  <arg name="rosbag_filepath" default=""/>
+  <arg name="cloud_topic" default="/cloud_registered_body"/>
+  <arg name="assumed_external_odometry_tracked_frame" default="body"/>
+  <arg name="async_pose_topic" default="/Odometry"/>
+  <arg name="replay_start_time_as_second" default="0.0"/>
+  <arg name="replay_end_time_as_second" default="500000.0"/>
+
+  <!-- Arguments -->
+  <arg name="launch_prefix" default="" doc="gdb -ex run --args"/>
+  <arg name="launch_rviz" default="true"/>
+  <arg name="use_sim_time" default="true"/>
+  <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+
+  <!-- You dont need to change these. -->
+  <arg name="is_read_from_rosbag" default="true"/>
+  <arg name="republish_tf_topic" default="false"/>
+  <arg name="relative_sleep_duration" default="0.0"/>
+  <arg name="save_processed_bag" default="false"/>
+  <arg name="icp_yaml_full_path" default="$(find open3d_slam_ros)/param/icp.yaml"/>   
+  <arg name="parameter_folder_path" default="$(find open3d_slam_ros)/param/"/>
+  <arg name="parameter_filename" default="param_velodyne_puck16_replay_tunnel.lua"/>
+  <arg name="map_saving_folder" default="$(find open3d_slam_ros)/data/maps/"/>
+
+  
+  <!-- Main Node -->
+  <node name="open3d_slam" pkg="open3d_slam_ros"
+        type="mapping_node" output="screen"
+        launch-prefix="$(arg launch_prefix)">
+    <param name="cloud_topic" type="string" value="$(arg cloud_topic)"/>
+
+    <param name="parameter_folder_path" type="string"
+           value="$(arg parameter_folder_path)"/>
+
+    <param name="assumed_external_odometry_tracked_frame" type="string"
+           value="$(arg assumed_external_odometry_tracked_frame)"/>
+
+    <param name="async_pose_topic" type="string"
+           value="$(arg async_pose_topic)"/>         
+
+    <param name="save_processed_bag" type="bool"
+           value="$(arg save_processed_bag)"/>
+
+    <param name="icp_yaml_full_path" type="string"
+           value="$(arg icp_yaml_full_path)"/>  
+
+    <param name="republish_tf_topic" type="bool"
+           value="$(arg republish_tf_topic)"/>
+
+    <param name="relative_sleep_duration" type="double"
+           value="$(arg relative_sleep_duration)"/>
+
+    <param name="replay_start_time_as_second" type="double"
+           value="$(arg replay_start_time_as_second)"/>
+
+    <param name="replay_end_time_as_second" type="double"
+           value="$(arg replay_end_time_as_second)"/>
+
+    <param name="parameter_filename" type="string"
+           value="$(arg parameter_filename)"/>
+    <param name="is_read_from_rosbag" value="$(arg is_read_from_rosbag)"/>
+    <param name="rosbag_filepath" value="$(arg rosbag_filepath)"/>
+    <param name="map_saving_folder" value="$(arg map_saving_folder)"/>
+  </node>
+
+  <!-- Visualization -->
+  <include
+      file="$(find open3d_slam_ros)/launch/vis.launch"
+      if="$(arg launch_rviz)">
+  </include>
+
+</launch>

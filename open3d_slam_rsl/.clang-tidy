@@ -1,0 +1,334 @@
+---
+# Format: Name of the check / Warning(W), Error(E), Skip (S), Covered by Compiler Warning (C) or Duplicate (D) / Justification
+
+# Checks:
+# boost-use-to-string                                         / W / use STL whenever possible
+# bugprone-argument-comment                                   / W / readability, comments should be correct
+# bugprone-assert-side-effect                                 / W / programmatic error, reduce gap between Debug and Release
+# bugprone-bad-signal-to-kill-thread                          / W / kills program, not only thread
+# bugprone-bool-pointer-implicit-conversion                   / W / expressiveness
+# bugprone-branch-clone                                       / W / copy-paste errors
+# bugprone-copy-constructor-init                              / W / programmatic error, copy constructor of base must be called
+# bugprone-dangling-handle                                    / W / avoid dangling references
+# bugprone-dynamic-static-initializers                        / W / prevent race conditions
+# bugprone-exception-escape                                   / W / undefined behavior
+# bugprone-fold-init-type                                     / W / programmatic error, expressiveness
+# bugprone-forward-declaration-namespace                      / W / typos
+# bugprone-forwarding-reference-overload                      / W / perfect forwarding constructors can hide copy/move constructors
+# bugprone-inaccurate-erase                                   / W / wrong usage of erase
+# bugprone-incorrect-roundings                                / W / replace with std::round
+# bugprone-infinite-loop                                      / W / programmatic error
+# bugprone-integer-division                                   / W / unintended precision loss
+# bugprone-lambda-function-name                               / W / lambda name is always operator()
+# bugprone-macro-parentheses                                  / W / unexpected behavior
+# bugprone-macro-repeated-side-effects                        / W / unexpected behavior
+# bugprone-misplaced-operator-in-strlen-in-alloc              / W / typo, but malloc anyway discouraged
+# bugprone-misplaced-widening-cast                            / W / could be unintended precision loss
+# bugprone-move-forwarding-reference                          / W / use std::forward instead
+# bugprone-multiple-statement-macro                           / W / programmatic error, multi-statement macro in unbraced conditional (we do not allow unbraced coditionals)
+# bugprone-not-null-terminated-result                         / W / undefined behavior
+# bugprone-parent-virtual-call                                / W / unexpected behavior, grand-parent virtual calls
+# bugprone-posix-return                                       / W / programmatic error, posix return never negative
+# bugprone-signed-char-misuse                                 / W / unexpected conversion result of signed char
+# bugprone-sizeof-container                                   / W / programmatic error, use .size() instead
+# bugprone-sizeof-expression                                  / W / programmatic error
+# bugprone-string-constructor                                 / W / unexpected behavior, wrong constructor usage
+# bugprone-string-integer-assignment                          / W / type safety
+# bugprone-string-literal-with-embedded-nul                   / W / invalid escape
+# bugprone-suspicious-enum-usage                              / W / enum misuse, programmatic error
+# bugprone-suspicious-memset-usage                            / W / memset misuse
+# bugprone-suspicious-missing-comma                           / W / array initialization error
+# bugprone-suspicious-semicolon                               / W / programmatic error, e.g. if(something); {...}
+# bugprone-suspicious-string-compare                          / W / programmatic error, options are (<0, 0, >0)
+# bugprone-swapped-arguments                                  / W / expressiveness, implicit conversions in arguments
+# bugprone-terminating-continue                               / W / programmatic error, code after continue not executed
+# bugprone-throw-keyword-missing                              / W / unexpected behavior, missing throw
+# bugprone-too-small-loop-variable                            / W / programmatic error, loop variable need sufficient size
+# bugprone-undefined-memory-manipulation                      / W / undefined behavior
+# bugprone-undelegated-constructor                            / W / unexpected behavior, hint delegating constructors
+# bugprone-unhandled-self-assignment                          / W / programmatic error, self assignment not handled in copy constructor
+# bugprone-unused-raii                                        / W / programmatic error, e.g. misuse of mutex locks
+# bugprone-unused-return-value                                / W / statement with no effect, more functions can be configured with 'CheckedFunctions' option.
+# bugprone-use-after-move                                     / W / programmatic error, use of moved object. Has false positives in conditionals, safe to NOLINT there.
+# bugprone-virtual-near-miss                                  / S / false positives due to similar function names
+# cppcoreguidelines-avoid-goto                                / W / replaceable with loops, readability
+# cppcoreguidelines-avoid-magic-numbers                       / D / readability-magic-numbers
+# cppcoreguidelines-c-copy-assignment-signature               / D / misc-unconventional-assign-operator
+# cppcoreguidelines-explicit-virtual-functions                / D / modernize-use-override
+# cppcoreguidelines-init-variables                            / W / prevent undefined behavior
+# cppcoreguidelines-interfaces-global-init                    / W / order of initialization problems
+# cppcoreguidelines-macro-usage                               / S / macros are heavily used by ROS
+# cppcoreguidelines-narrowing-conversions                     / W / prevent bugs, readability
+# cppcoreguidelines-no-malloc                                 / W / bugprone manual resource management
+# cppcoreguidelines-non-private-member-variables-in-classes   / D / misc-non-private-member-variables-in-classes
+# cppcoreguidelines-owning-memory                             / S / GSL not widely used
+# cppcoreguidelines-pro-bounds-array-to-pointer-decay         / S / too verbose, ROSCONSOLE macros trigger this warning
+# cppcoreguidelines-pro-bounds-constant-array-index           / S / GSL not widely used
+# cppcoreguidelines-pro-bounds-pointer-arithmetic             / W / prevent out of range access
+# cppcoreguidelines-pro-type-const-cast                       / W / not respecting constness
+# cppcoreguidelines-pro-type-cstyle-cast                      / W / type safety violation
+# cppcoreguidelines-pro-type-member-init                      / W / prevent undefined behavior
+# cppcoreguidelines-pro-type-reinterpret-cast                 / S / useful for driver implementations
+# cppcoreguidelines-pro-type-static-cast-downcast             / W / type safety violation
+# cppcoreguidelines-pro-type-union-access                     / W / union safety
+# cppcoreguidelines-pro-type-vararg                           / S / too verbose, ROSCONSOLE macros trigger this warning
+# cppcoreguidelines-slicing                                   / W / prevent "wrong" function calls, readability
+# cppcoreguidelines-special-member-functions                  / W / respect rule of three respect rule of three if at least one member function is defined (rule of five disabled, virtual default destructor is allowed without rule of three)
+# google-build-explicit-make-pair                             / W / readability, verbosity
+# google-build-namespaces                                     / W / discourage anonymous namespaces in headers
+# google-build-using-namespace                                / W / readability, pro explicit namespace usage
+# google-default-arguments                                    / W / default arguments on virtual functions are resolved on static type
+# google-explicit-constructor                                 / W / readability, pro explicit conversions
+# google-global-names-in-headers                              / W / pollution of global namespace
+# google-objc-*                                               / S / no objective-C code
+# google-readability-avoid-underscore-in-googletest-name      / W / underscores are not allowed in test names
+# google-readability-braces-around-statements                 / D / readability-braces-around-statements
+# google-readability-casting                                  / D / cppcoreguidelines-pro-type-cstyle-cast
+# google-readability-function-size                            / D / readability-function-size
+# google-readability-namespace-comments                       / W / readability
+# google-readability-todo                                     / W / todo's should always state the author (traceability)
+# google-runtime-int                                          / S / short and long (long) are tolerated
+# google-runtime-operator                                     / W / google style guide
+# google-runtime-references                                   / S / non-const reference function parameters are allowed
+# google-upgrade-googletest-case                              / W / update to gtest 1.9 naming
+# misc-definitions-in-headers                                 / W / order of initialization problems
+# misc-redundant-expression                                   / W / prevent copy-paste errors
+# misc-non-private-member-variables-in-classes                / W / warning spam prevention in technical debt
+# misc-static-assert                                          / W / assert earlier if possible
+# misc-unconventional-assign-operator                         / W / programming error
+# misc-uniqueptr-reset-release                                / W / readability
+# misc-unused-parameters                                      / W / readability, can be a hint for bugs, also present with pedantic compiler warnings
+# misc-unused-using-decls                                     / W / readability
+# misc-*                                                      / S / skip rest of misc as they are a collection of several warnings
+# modernize-avoid-bind                                        / W / modernize to lambdas which are also easier to read
+# modernize-avoid-c-arrays                                    / W / use std::array instead
+# modernize-concat-nested-namespaces                          / S / C++17 feature
+# modernize-deprecated-headers                                / W / discourage deprecated code
+# modernize-deprecated-ios-base-aliases                       / W / discourage deprecated code
+# modernize-loop-convert                                      / W / range based loops easily readable
+# modernize-make-shared                                       / W / less allocation, exception safety (pre C++17)
+# modernize-make-unique                                       / W / less allocation, exception safety (pre C++17)
+# modernize-pass-by-value                                     / W / performance (want speed, pass by value)
+# modernize-raw-string-literal                                / W / readability
+# modernize-redundant-void-arg                                / W / readability
+# modernize-replace-auto-ptr                                  / W / discourage deprecated code
+# modernize-replace-random-shuffle                            / S / std::random_shuffle still present pre C++17
+# modernize-return-braced-init-list                           / S / too pedantic
+# modernize-shrink-to-fit                                     / W / modernize
+# modernize-unary-static-assert                               / S / C++17 feature
+# modernize-use-auto                                          / W / readability and maintainability
+# modernize-use-bool-literals                                 / W / readability
+# modernize-use-default-member-init                           / S / usage of initializer lists is allowed
+# modernize-use-emplace                                       / W / performance
+# modernize-use-equals-default                                / W / readability
+# modernize-use-equals-delete                                 / W / readability
+# modernize-use-nodiscard                                     / S / function caller is responsible for discarding or not
+# modernize-use-noexcept                                      / W / readability
+# modernize-use-nullptr                                       / W / readability, type safety
+# modernize-use-override                                      / W / modernize and prevent typos in overrides
+# modernize-use-trailing-return-type                          / S / trailing return types are not required by the styleguide
+# modernize-use-transparent-functors                          / W / modernize
+# modernize-use-uncaught-exceptions                           / S / std::uncaught_exception still present pre C++17
+# modernize-use-using                                         / W / readability, templated usings
+# readability-avoid-const-params-in-decls                     / W / readability, verbosity, const in declarations is not required
+# readability-braces-around-statements                        / W / styleguide
+# readability-const-return-type                               / W / superfluous, limits compiler optimizations
+# readability-container-size-empty                            / W / performance, readability
+# readability-convert-member-functions-to-static              / W / hint for developer that the API is not ideal (function could be called from clients without an object)
+# readability-delete-null-pointer                             / W / check for null is unnecessary
+# readability-deleted-default                                 / W / make sure default special member functions are not deleted by the compiler
+# readability-else-after-return                               / S / can lead to less readable code, leave up to the programmer to decide
+# readability-function-size                                   / S / macro heavy code can exceed this quickly
+# readability-identifier-naming                               / W / make sure naming conventions are followed
+# readability-implicit-bool-conversion                        / W / expressiveness
+# readability-inconsistent-declaration-parameter-name         / W / readability
+# readability-isolate-declaration                             / W / readability
+# readability-magic-numbers                                   / S / less verbose with Metrix++
+# readability-make-member-function-const                      / W / missing const can change interface in future
+# readability-misleading-indentation                          / W / formatting
+# readability-named-parameter                                 / W / styleguide
+# readability-non-const-parameter                             / W / increase const correctness
+# readability-qualified-auto                                  / W / readability, keep pointer also with auto usage
+# readability-redundant-access-specifiers                     / S / too pedantic, can help structure the classes
+# readability-redundant-control-flow                          / W / readability
+# readability-redundant-declaration                           / W / readability, copy-paste errors
+# readability-redundant-function-ptr-dereference              / W / readability
+# readability-redundant-member-init                           / S / too pedantic, can help to keep init order
+# readability-redundant-preprocessor                          / W / readability
+# readability-redundant-smartptr-get                          / W / readability
+# readability-redundant-string-cstr                           / W / readability
+# readability-redundant-string-init                           / W / readability
+# readability-simplify-boolean-expr                           / W / readability
+# readability-simplify-subscript-expr                         / W / readability
+# readability-static-accessed-through-instance                / W / readability
+# readability-static-definition-in-anonymous-namespace        / W / readability
+# readability-string-compare                                  / W / readability
+# readability-uniqueptr-delete-release                        / W / no need to handle raw pointers
+# readability-uppercase-literal-suffix                        / S / too pedantic
+
+# Excluded categories:  abseil, android, cert, clang-analyzer, darwin, fuchsia, hicpp, linuxkernel,
+#                       llvm, mpi, objc, openmp, portability, zircon
+
+# To be decided:
+# performance.
+
+Checks: '
+boost-use-to-string,
+bugprone-argument-comment,
+bugprone-assert-side-effect,
+bugprone-bad-signal-to-kill-thread,
+bugprone-bool-pointer-implicit-conversion,
+bugprone-branch-clone,
+bugprone-copy-constructor-init,
+bugprone-dangling-handle,
+bugprone-dynamic-static-initializers,
+bugprone-exception-escape,
+bugprone-fold-init-type,
+bugprone-forward-declaration-namespace,
+bugprone-forwarding-reference-overload,
+bugprone-inaccurate-erase,
+bugprone-incorrect-roundings,
+bugprone-infinite-loop,
+bugprone-integer-division,
+bugprone-lambda-function-name,
+bugprone-macro-parentheses,
+bugprone-macro-repeated-side-effects,
+bugprone-misplaced-operator-in-strlen-in-alloc,
+bugprone-misplaced-widening-cast,
+bugprone-move-forwarding-reference,
+bugprone-multiple-statement-macro,
+bugprone-not-null-terminated-result,
+bugprone-parent-virtual-call,
+bugprone-posix-return,
+bugprone-signed-char-misuse,
+bugprone-sizeof-container,
+bugprone-sizeof-expression,
+bugprone-string-constructor,
+bugprone-string-integer-assignment,
+bugprone-string-literal-with-embedded-nul,
+bugprone-suspicious-enum-usage,
+bugprone-suspicious-memset-usage,
+bugprone-suspicious-missing-comma,
+bugprone-suspicious-semicolon,
+bugprone-suspicious-string-compare,
+bugprone-swapped-arguments,
+bugprone-terminating-continue,
+bugprone-throw-keyword-missing,
+bugprone-too-small-loop-variable,
+bugprone-undefined-memory-manipulation,
+bugprone-undelegated-constructor,
+bugprone-unhandled-self-assignment,
+bugprone-unused-raii,
+bugprone-unused-return-value,
+bugprone-use-after-move,
+cppcoreguidelines-avoid-goto,
+cppcoreguidelines-init-variables,
+cppcoreguidelines-interfaces-global-init,
+cppcoreguidelines-narrowing-conversions,
+cppcoreguidelines-no-malloc,
+cppcoreguidelines-pro-bounds-pointer-arithmetic,
+cppcoreguidelines-pro-type-const-cast,
+cppcoreguidelines-pro-type-cstyle-cast,
+cppcoreguidelines-pro-type-member-init,
+cppcoreguidelines-pro-type-static-cast-downcast,
+cppcoreguidelines-pro-type-union-access,
+cppcoreguidelines-slicing,
+cppcoreguidelines-special-member-functions,
+google-build-explicit-make-pair,
+google-build-namespaces,
+google-build-using-namespace,
+google-default-arguments,
+google-explicit-constructor,
+google-global-names-in-headers,
+google-readability-avoid-underscore-in-googletest-name,
+google-readability-namespace-comments,
+google-readability-todo,
+google-runtime-operator,
+google-upgrade-googletest-case,
+misc-definitions-in-headers,
+misc-non-private-member-variables-in-classes,
+misc-redundant-expression,
+misc-static-assert,
+misc-unconventional-assign-operator,
+misc-uniqueptr-reset-release,
+misc-unused-parameters,
+misc-unused-using-decls,
+modernize-avoid-bind,
+modernize-avoid-c-arrays,
+modernize-deprecated-ios-base-aliases,
+modernize-deprecated-headers,
+modernize-loop-convert,
+modernize-make-shared,
+modernize-make-unique,
+modernize-pass-by-value,
+modernize-raw-string-literal,
+modernize-redundant-void-arg,
+modernize-replace-auto-ptr,
+modernize-shrink-to-fit,
+modernize-use-auto,
+modernize-use-bool-literals,
+modernize-use-emplace,
+modernize-use-equals-default,
+modernize-use-equals-delete,
+modernize-use-noexcept,
+modernize-use-nullptr,
+modernize-use-override,
+modernize-use-transparent-functors,
+modernize-use-using,
+readability-avoid-const-params-in-decls,
+readability-braces-around-statements,
+readability-const-return-type,
+readability-container-size-empty,
+readability-convert-member-functions-to-static,
+readability-delete-null-pointer,
+readability-deleted-default,
+readability-identifier-naming,
+readability-implicit-bool-conversion,
+readability-inconsistent-declaration-parameter-name,
+readability-isolate-declaration,
+readability-make-member-function-const,
+readability-misleading-indentation,
+readability-misplaced-array-index,
+readability-named-parameter,
+readability-non-const-parameter,
+readability-qualified-auto,
+readability-redundant-control-flow,
+readability-redundant-declaration,
+readability-redundant-function-ptr-dereference,
+readability-redundant-preprocessor,
+readability-redundant-smartptr-get,
+readability-redundant-string-cstr,
+readability-redundant-string-init,
+readability-simplify-boolean-expr,
+readability-simplify-subscript-expr,
+readability-static-accessed-through-instance,
+readability-static-definition-in-anonymous-namespace,
+readability-string-compare,
+readability-uniqueptr-delete-release
+'
+
+# Add all checks that should be treated as errors.
+# WarningsAsErrors: ''
+
+# Option for the checks.
+CheckOptions:
+  - key:             cppcoreguidelines-init-variables.IncludeStyle
+    value:           google
+  - key:             misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value:           1
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.EnumCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.FunctionCase
+    value:           camelBack
+  - key:             readability-identifier-naming.MemberCase
+    value:           camelBack
+  - key:             readability-identifier-naming.MemberSuffix
+    value:           _
+  - key:             readability-identifier-naming.MethodCase
+    value:           camelBack
+  - key:             readability-identifier-naming.NamespaceCase
+    value:           lower_case
+  - key:             readability-identifier-naming.StructCase
+    value:           aNy_CasE
