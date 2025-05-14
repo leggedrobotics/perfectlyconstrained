@@ -43,7 +43,7 @@ To build this repository, you need to:
 Clone the repository to:
 ``` bash
 cd catkin_ws/src
-git clone git@github.com:leggedrobotics/open3d_slam_private.git.
+git clone git@github.com:leggedrobotics/perfectlyconstrained.git.
 cd ..
 catkin init
 catkin config -DCMAKE_BUILD_TYPE=Release
